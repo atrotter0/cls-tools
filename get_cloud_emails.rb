@@ -2,7 +2,12 @@ require 'rest-client'
 require 'json'
 require 'csv'
 
-#
+# # # # # # # # # # # # #
+#                       #
+#   CLOUD EMAILS TOOL   #
+#                       #
+# # # # # # # # # # # # # 
+# 
 # Instructions:
 #
 # 1. Change the value of the cls_urn variable on line 173 to match the CLS you are wanting to export emails for
@@ -12,7 +17,7 @@ require 'csv'
 # 5. Type the following command in your terminal window: ruby get_cloud_emails.rb
 # 6. You're done! A confirmation message should display on the screen.
 # 
-# Note: Any new executions of this script will overwrite the specified client's data in their csv. 
+# Note: Any new executions of this script will overwrite the specified client's data in their emails csv. 
 # 
 #
 
@@ -106,16 +111,13 @@ end
 def build_object(client_urn, cls_url)
 	# array used for data export
 	emails_arr = []
-
 	# get data from the hub api
 	hub_url = "http://hub.g5dxm.com/clients/#{client_urn}.json"
 	hub_response = get_response hub_url
 	hub_data = get_data hub_response, hub_url
-
 	# get data from cls api
 	cls_response = get_response cls_url
 	cls_data = get_data cls_response, cls_url
-
 	# build objects with hub data
 	hub_data["client"]["locations"].each do |loc|
 		# grab locations that are not deleted or suspended
@@ -127,7 +129,6 @@ def build_object(client_urn, cls_url)
 			# add cls data to existing objects
 			cls_data["configurable_attributes"].each do |item|
 				# add to existing object if location urns are the same
-				# fix this so it only grabs field reply_to_email
 				if item["category"] == "Location" && item["location_urn"] == email_obj.get_loc_urn && item["field"] == "to_email"
 				# only push values that are emails
 				my_string = item["value"]
@@ -144,7 +145,6 @@ def build_object(client_urn, cls_url)
 			emails_arr.push(email_obj)
 		end
 	end
-
 	# run export to csv method
 	export_emails "#{client_urn}_cloud_emails.csv", emails_arr
 	puts "Emails exported!"
