@@ -3,9 +3,9 @@ require 'json'
 require 'csv'
 
 # # # # # # # # # # # # #
-# 											#
+#                       #
 #   CLS OVERRIDES TOOL  #
-#     									#
+#                       #
 # # # # # # # # # # # # # 
 # 
 # Instructions:
