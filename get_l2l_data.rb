@@ -43,7 +43,7 @@ class LeadToLeaseData
   def add_location_count
     @loc_count = @loc_count + 1
   end
-  
+
   def add_customer_count
     @customer_count = @customer_count + 1
   end
