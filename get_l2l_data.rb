@@ -2,6 +2,26 @@ require 'rest-client'
 require 'json'
 require 'csv'
 
+# # # # # # # # # # # # #
+#                       #
+#    L2L Finder TOOL    #
+#                       #
+# # # # # # # # # # # # # 
+# 
+# Instructions:
+#
+# 1. You will need an export from Wrangler with the current list of CLSs
+# 2. Modify the file name on line 140 to match the name of your CLS list
+# 3. Save your changes
+# 4. Open Terminal
+# 5. Navigate to the folder where the get_l2l_data.rb script is saved
+# 6. Type the following command in your terminal window: ruby get_l2l_data.rb
+# 7. This may take awhile if iterating through all CLSs. A confirmation message should display on the screen when the task is complete.
+# 
+# Note: Any new executions of this script will overwrite the cls-l2l-list csv. 
+# 
+#
+
 class LeadToLeaseData
 
   def initialize(name)
