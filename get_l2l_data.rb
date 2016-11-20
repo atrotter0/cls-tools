@@ -2,16 +2,18 @@ require 'rest-client'
 require 'json'
 require 'csv'
 
+load 'cls_helpers.rb'
+
 # # # # # # # # # # # # #
 #                       #
-#    L2L Finder TOOL    #
+#    L2L FINDER TOOL    #
 #                       #
 # # # # # # # # # # # # # 
 # 
 # Instructions:
 #
 # 1. You will need an export from Wrangler with the current list of CLSs
-# 2. Modify the file name on line 140 to match the name of your CLS list
+# 2. Modify the file name on line 129 to match the filename of your CLS list
 # 3. Save your changes
 # 4. Open Terminal
 # 5. Navigate to the folder where the get_l2l_data.rb script is saved
@@ -24,15 +26,16 @@ require 'csv'
 
 class LeadToLeaseData
 
+  attr_accessor :name
+  attr_accessor :loc_count
+  attr_accessor :customer_count
+  attr_accessor :count
+
   def initialize(name)
-    @client_name = name
+    @name = name
     @loc_count = 0
     @customer_count = 0
     @count = 0
-  end
-
-  def get_name
-    return @client_name
   end
 
   def get_count
@@ -60,18 +63,6 @@ def build_cls_list(file_name, arr)
   file.close
 end
 
-# get cls response
-def get_response(url)
-  flag = true
-  response = RestClient.get(url){|response, request, result| response 
-    if response.code != 200
-      flag = false
-      puts "Skipped #{url} (#{response.code})"
-    end
-  }
-  return flag
-end
-
 # export l2l arr of objects to csv
 def export_to_csv(file_name, arr)
   puts "Exporting list..."
@@ -84,7 +75,7 @@ def export_to_csv(file_name, arr)
     CSV.open(file_name, "a+") do |csv|
       formatted = []
       if arr[i].get_count > 0
-        formatted.push(arr[i].get_name, arr[i].get_count)
+        formatted.push(arr[i].name, arr[i].get_count)
         csv << formatted
       end
     end
@@ -99,11 +90,9 @@ def lead_to_lease_finder(arr)
   arr.each do |cls|
     cls_url = "https://#{cls}.herokuapp.com/api/v1/configurable_attributes"
     cls_response = get_response cls_url
-    
-    # check HTTP response and gather API data
+
     if cls_response == true
-      response = RestClient.get(cls_url)
-      cls_data = JSON.load response
+      cls_data = get_data cls_response, cls_url
       lead_to_lease_data = LeadToLeaseData.new(cls)
       puts "Checking #{cls}..."
 
