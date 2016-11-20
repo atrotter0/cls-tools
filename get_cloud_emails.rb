@@ -12,7 +12,7 @@ load 'cls_helpers.rb'
 # 
 # Instructions:
 #
-# 1. Change the value of the cls_urn variable on line ___ to match the CLS you are wanting to export emails for
+# 1. Change the value of the cls_urn variable on line 141 to match the CLS you are wanting to export emails for
 # 2. Save your changes
 # 3. Open Terminal
 # 4. Navigate to the folder that the get_cloud_emails.rb file is saved
