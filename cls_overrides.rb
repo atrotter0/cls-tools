@@ -314,8 +314,8 @@ def export_category(file_name, arr)
 end
 
 # script start
-# example cls URN: cls_urn = "g5-cls-ifu2jcq3-pensam-capital"
-cls_urn = "g5-cls-1t2d31r8-berkshire-comm"
+# example cls URN: cls_urn = "g5-cls-1234-name"
+cls_urn = "g5-cls-inhx0yfu-the-danger-zon"
 cls_url = "https://#{cls_urn}.herokuapp.com/api/v1/configurable_attributes"
 puts "Gathering data for #{cls_urn}..."
 client_urn = get_client_urn cls_url
