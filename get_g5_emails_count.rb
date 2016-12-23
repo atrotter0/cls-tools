@@ -1,7 +1,7 @@
 require 'json'
 
 # read from file, parse json data
-filename = "cls_api_data.json"
+filename = "heroku_results.json"
 file = File.read(filename)
 data_hash = JSON.parse(file)
 
@@ -17,7 +17,7 @@ data_hash.each do |item|
   end
 end
 
-# dispay data in terminal
+# display data in terminal
 puts "CLS' on G5 Emails: #{on_g5_emails}"
 puts "Count: #{on_g5_emails.count}"
 puts "***************************************************"
