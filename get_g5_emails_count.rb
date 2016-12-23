@@ -5,7 +5,7 @@ filename = "cls_api_data.json"
 file = File.read(filename)
 data_hash = JSON.parse(file)
 
-# array for holding list of app names on G5 Emails
+# containers for holding app names
 on_g5_emails = []
 off_g5_emails = []
 
